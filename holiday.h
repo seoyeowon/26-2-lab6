@@ -21,17 +21,38 @@ namespace Seoyeowon2649020{
                 std::cout << "Parking laws will not be enforced.\n";
         }
 
+        friend std::ostream& operator<<(std::ostream& os, const holiday& h){
+            os << h.name << ": ";
+            os << h.date;
+            if (h.parkingEnforcement)
+                os  << "Parking laws will be enforced.\n";
+            else
+                os << "Parking laws will not be enforced.\n";
+            return os;
+        }
+
+        friend std::istream& operator>>(std::istream& is, holiday& h){
+            std::cout << "Enter holiday name: ";
+            std::getline(is >> std::ws, h.name);
+            is >> h.date;
+            std::cout << "Enter parking law enforcement: (1(true) or 0(false)): ";
+            is >> h.parkingEnforcement;
+            return is;
+        }
+
         void input(){
             std::cout << "Enter holiday name: ";
             std::getline(std::cin >> std::ws, name);
             date.input();
-            std::cout << "Enter parkin glaw enforcement: (1(true) or 0(false)): ";
+            std::cout << "Enter parking law enforcement: (1(true) or 0(false)): ";
             std::cin >> parkingEnforcement;
         }
 
 
-
+        const std::string& getName() const {return name;}
         const dayOfYear& getDate() const { return date; }
+        void setName(const std::string& n) {name = n;}
         void setDate(const dayOfYear& d){ date = d; }
+        void setParkingEnforcement(bool p) {parkingEnforcement = p;}
     };
 }
